@@ -87,6 +87,9 @@ chmod 640 "$nextclouddir/config/config.php"
 cp /scripts/templates/favicon.ico $nextclouddir/favicon.ico
 chown -R www-data:www-data "$webdir"
 
+echo -e " \e[45mNew skeleton \e[106m"
+rm -rf $nextclouddir/core/skeleton
+cp -r /scripts/templates/skel/ $nextclouddir/core/skeleton
 
 echo -e " \e[45mGetting an SSL cert \e[106m"
 certbot --nginx --redirect -d $fqdn

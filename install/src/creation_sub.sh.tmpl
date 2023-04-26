@@ -90,6 +90,10 @@ chmod 640 "$nextclouddir/config/config.php"
 cp /scripts/templates/favicon.ico $nextclouddir/favicon.ico
 chown -R www-data:www-data "$webdir"
 
+echo -e " \e[45mNew skeleton \e[106m"
+rm -rf $nextclouddir/core/skeleton
+cp -r /scripts/templates/skel/ $nextclouddir/core/skeleton
+
 echo -e " \e[45mCreating a occ shortcut for installation \e[106m"
 
 echo "alias occ_$custid='sudo -u www-data php $nextclouddir/occ'" >> ~/.bashrc
