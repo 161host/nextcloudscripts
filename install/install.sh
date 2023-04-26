@@ -22,7 +22,38 @@ cp /scripts/install/src/php-handler.conf /etc/nginx/conf.d/php-handler.conf
 
 nginx -t
 
-mkdir /scripts/data
+mount -a
+
+if [ -d /data ]; then
+  echo "/data already exists"
+else
+  echo "Creating /data"
+  mkdir /data
+fi
+
+if [ -d /webroot ]; then
+  echo "/webroot already exists"
+else
+  echo "Creating /webroot"
+  mkdir /webroot
+fi
+
+if [ -d /secrets ]; then
+  echo "/secrets already exists"
+else
+  echo "Creating /secrets"
+  mkdir /secrets
+fi
+
+
+if [ -d /scripts/data ]; then
+  echo "/scripts/data already exists"
+else
+  echo "Creating /scripts/data"
+  mkdir /scripts/data
+fi
+
+
 
 echo 'alias ncmgmt="bash /scripts/domainmgmt.sh"' >> ~/.bashrc
 source ~/.bashrc
