@@ -92,7 +92,7 @@ certbot --nginx --redirect -d $fqdn
 
 echo -e " \e[45mCreating a occ shortcut for installation \e[106m"
 
-echo "alias occ_$custid='sudo -u www-data php $nextclouddir/occ'"
+echo "alias occ_$custid='sudo -u www-data php $nextclouddir/occ'" >> ~/.bashrc
 
 
 echo -e " \e[45mCreating a file with all credentials (/secrets/$fqdn) \e[106m"
