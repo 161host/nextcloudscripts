@@ -54,6 +54,7 @@ It's a pile of bash scripts, so don't expect anything fancy.
 - certbot
 - python3-certbot-nginx
 - mariadb-server
+- libmagickcore-6.q16-3-extra
 - php8.1
 - php8.1-cli
 - php8.1-fpm
@@ -64,6 +65,7 @@ It's a pile of bash scripts, so don't expect anything fancy.
 - php8.1-xml
 - php8.1-gd
 - php8.1-curl
+- php8.1-imagick
 
 **This scrips expect some stuff. Alter them as needed if your setup differs from mine.**
 
