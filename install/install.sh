@@ -15,7 +15,7 @@ fi
 
 
 apt update && apt upgrade -y
-apt install nginx certbot wget unzip bash sed python3-certbot-nginx mariadb-server php8.1 php8.1-cli php8.1-fpm php8.1-zip php8.1-mysql php8.1-opcache php8.1-mbstring php8.1-xml php8.1-gd php8.1-curl libmagickcore-6.q16-3-extra php8.1-imagick -y
+apt install nginx certbot wget unzip bash sed python3-certbot-nginx mariadb-server php8.1 php8.1-cli php8.1-fpm php8.1-zip php8.1-mysql php8.1-opcache php8.1-mbstring php8.1-xml php8.1-gd php8.1-curl libmagickcore-6.q16-3-extra php8.1-imagick logrotate -y
 
 cp /scripts/install/src/immutable.conf /etc/nginx/conf.d/immutable.conf
 cp /scripts/install/src/php-handler.conf /etc/nginx/conf.d/php-handler.conf
@@ -66,6 +66,9 @@ cp /scripts/install/src/creation_sub.sh.tmpl /scripts/creation_sub.sh
 
 sed -i "s/replacewithactualsubdomain/$subdomain/g" /scripts/creation_sub.sh
 sed -i "s/replacewithactualsubdomain/$subdomain/g" /scripts/templates/subdomain
+
+cp /scripts/install/src/logrotate /etc/logrotate.d/nextcloud
+logrotate -f /etc/logrotate.d/nextcloud
 
 echo "I'll just expect that your wildcard certificate is here: /etc/letsencrypt/live/$subdomain/"
 echo " "

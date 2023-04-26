@@ -1,0 +1,12 @@
+/var/log/nextcloud/*.log {
+    weekly
+    rotate 4
+    missingok
+    notifempty
+    compress
+    delaycompress
+    sharedscripts
+    postrotate
+        nginx -s reload
+    endscript
+}
