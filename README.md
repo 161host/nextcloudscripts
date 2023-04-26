@@ -1,6 +1,19 @@
-# Nextcloud Install Scripts
+Nextcloud Install Scripts
+===
 
-These files allow you to install multiple nextclouds on the same host.
+These files allow you to install multiple nextclouds on the same host without docker and stuff.
+
+## Motivation
+
+I wanted to easily create multiple nextcloud instances for customers of 161host.net
+
+All the other stuff is based on multiple docker containers and because I thought it'll be a waste of ressources I decided to build it as bash scripts directly running on a webserver.
+
+A feew weeks ago someone asked me how he could do something similar, so I decided to publish this hunk of junk.
+
+It's a pile of bash scripts, so don't expect anything fancy.
+
+
 
 ## How to use
 
@@ -82,20 +95,12 @@ certbot certonly --manual --preferred-challenges=dns --email valid@example.com -
 
 ### How to create a new Nextcloud Instance with the script
 
-If you used the `install.sh` just enter `ncmgmt` in your root bash
-
-You should see something like
-
-`Create subdomain (s) , own Domain (o) or delete Domain (d)?:`
-
+- `ncmgmt`
+  - You should see something like `Create subdomain (s) , own Domain (o) or delete Domain (d)?:`
 - Select s or o 
-
 - Enter the subdomain part (s) or the fqdn (o)
-
 - Enter the customer ID (this needs to be a unique string only containing lowercase letters and numbers. Everything else will break stuff later! **I'LL EXPRESS THE _UNIQUE_ PART AGAIN CAUSE OTHERWISE YOU'LL LOOSE DATABASES!**)
-
 - The auto installer will download the latest.zip from nextcloud will unzip it into the right directory and set some stuff via `occ` (the nextcloud command line tool)
-
 - The auto install will present you with the contents of `/secrets/$fqdn` use them to test and **PLEASE** delete it after you put the credentials in a safer place ( i.e. password manager )
 
 ### How to delete a Nextcloud Instance
