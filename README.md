@@ -3,6 +3,14 @@ Nextcloud Install Scripts
 
 `Heads up: This is a lot of rambling because I suck at writing README's.. If you can do it better, feel free to create a PR`
 
+# Quickstart
+
+```bash
+git clone https://github.com/161host/nextcloudscripts /scripts
+bash /scripts/install/install.sh
+```
+
+# README
 These files allow you to install multiple nextclouds on the same host without docker and stuff.
 
 
@@ -92,7 +100,7 @@ i.e. `/webroot` on a high i/o volume for smooth usage of the webapps and stuff b
 If you don't want to do the mounting stuff yourself you can just create the directory
 
 
-```
+```bash
 mkdir /data
 mkdir /webroot
 mkdir /secrets
@@ -100,8 +108,8 @@ mkdir /secrets
 
 I'm no fan of `curl https://<something> | bash` as root so here we go. Here is what most of these files are:
 
-```
-git clone https://github.com/td00/nextcloudscripts /scripts
+```bash
+git clone https://github.com/161host/nextcloudscripts /scripts
 bash /scripts/install/install.sh
 ```
 
@@ -115,7 +123,7 @@ Also the install won't generate a wildcard certificate for you cause I can't be 
 
 Worst case do it manually with (and replace domain & email ;) )
 
-```
+```bash
 certbot certonly --manual --preferred-challenges=dns --email valid@example.com --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d nc.example.com -d *.nc.example.com
 ````
 
