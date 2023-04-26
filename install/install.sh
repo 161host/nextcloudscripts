@@ -22,11 +22,16 @@ cp /scripts/install/src/php-handler.conf /etc/nginx/conf.d/php-handler.conf
 
 nginx -t
 
+mkdir /scripts/data
+
 echo 'alias ncmgmt="bash /scripts/domainmgmt.sh"' >> ~/.bashrc
 source ~/.bashrc
 
 read -p "Enter your custom subdomain:  " subdomain
 
+
+cp /scripts/install/src/subdomain.tmpl /scripts/templates/subdomain
+cp /scripts/install/src/creation_sub.sh.tmpl /scripts/creation_sub.sh
 
 sed -i "s/replacewithactualsubdomain/$subdomain/g" /scripts/creation_sub.sh
 sed -i "s/replacewithactualsubdomain/$subdomain/g" /scripts/templates/subdomain
