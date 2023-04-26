@@ -69,6 +69,11 @@ chown www-data:www-data $datadir
 echo -e " \e[45mInstalling Nextcloud \e[106m"
 wget -O /tmp/latest.zip "https://download.nextcloud.com/server/releases/latest.zip"
 unzip "/tmp/latest.zip" -d $webdir
+
+
+echo -e " \e[45mNew skeleton \e[106m"
+rm -rf $nextclouddir/core/skeleton
+cp -r /scripts/templates/skel/ $nextclouddir/core/skeleton
 chown -R www-data:www-data $webdir
 
 
@@ -90,9 +95,7 @@ chmod 640 "$nextclouddir/config/config.php"
 cp /scripts/templates/favicon.ico $nextclouddir/favicon.ico
 chown -R www-data:www-data "$webdir"
 
-echo -e " \e[45mNew skeleton \e[106m"
-rm -rf $nextclouddir/core/skeleton
-cp -r /scripts/templates/skel/ $nextclouddir/core/skeleton
+
 
 echo -e " \e[45mCreating a occ shortcut for installation \e[106m"
 
