@@ -1,0 +1,28 @@
+name: Check Apt Packages
+
+on: push
+
+jobs:
+  ubuntu-latest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Required Apt Packages
+        run: |
+          apt update
+          apt install nginx certbot wget unzip bash sed python3-certbot-nginx mariadb-server php8.1 php8.1-cli php8.1-fpm php8.1-zip php8.1-mysql php8.1-opcache php8.1-mbstring php8.1-xml php8.1-gd php8.1-curl libmagickcore-6.q16-3-extra php8.1-imagick -y
+  ubuntu-2004:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Install Required Apt Packages
+        run: |
+          apt update
+          apt install nginx certbot wget unzip bash sed python3-certbot-nginx mariadb-server php8.1 php8.1-cli php8.1-fpm php8.1-zip php8.1-mysql php8.1-opcache php8.1-mbstring php8.1-xml php8.1-gd php8.1-curl libmagickcore-6.q16-3-extra php8.1-imagick -y
+  ubuntu-1804:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Install Required Apt Packages
+        run: |
+          apt update
+          apt install nginx certbot wget unzip bash sed python3-certbot-nginx mariadb-server php8.1 php8.1-cli php8.1-fpm php8.1-zip php8.1-mysql php8.1-opcache php8.1-mbstring php8.1-xml php8.1-gd php8.1-curl libmagickcore-6.q16-3-extra php8.1-imagick -y
+    
+
