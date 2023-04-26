@@ -1,6 +1,8 @@
 Nextcloud Install Scripts
 ===
 
+`Heads up: This is a lot of rambling because I suck at writing README's.. If you can do it better, feel free to create a PR`
+
 These files allow you to install multiple nextclouds on the same host without docker and stuff.
 
 
