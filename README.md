@@ -15,6 +15,14 @@ These files allow you to install multiple nextclouds on the same host without do
 ###################################################
 ```
 
+**If you use this software commercially please link to this repository and/or 161host.net / me**
+
+**This software is NOT for Nazis, (Alt-)Rights, TERFs, the military, weapons & defense manufactures, and stuff like that.**
+
+If you go to https://161host.net and are offended **THIS TOOL IS NOT FOR YOU!**
+
+![](install/antifa.png)
+
 
 ## Motivation
 
