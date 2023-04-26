@@ -76,12 +76,6 @@ i.e. `/webroot` on a high i/o volume for smooth usage of the webapps and stuff b
 
 *Here I'll expect you already have `git` installed on your system. If not do that now.*
 
-I'm no fan of `curl https://<something> | bash` as root so here we go. Here is what most of these files are:
-
-```
-git clone https://github.com/td00/nextcloudscripts /scripts
-bash /scripts/install/install.sh
-```
 
 If you don't want to do the mounting stuff yourself you can just create the directory
 
@@ -91,6 +85,15 @@ mkdir /data
 mkdir /webroot
 mkdir /secrets
 ```
+
+I'm no fan of `curl https://<something> | bash` as root so here we go. Here is what most of these files are:
+
+```
+git clone https://github.com/td00/nextcloudscripts /scripts
+bash /scripts/install/install.sh
+```
+
+
 
 **The `install.sh` will fail if you don't have a Debian based OS and most likely will fail if your system doesn't know how to get php8.1!**
 
