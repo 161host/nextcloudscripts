@@ -3,6 +3,17 @@ Nextcloud Install Scripts
 
 These files allow you to install multiple nextclouds on the same host without docker and stuff.
 
+
+```
+###################################################
+# Author: Thies Mueller (https://thiesmueller.de) #
+# License: GNU AGPL v3.0                          #
+# USE AT YOUR OWN RISK!                           #
+# Originally developed for 161host.net            #
+###################################################
+```
+
+
 ## Motivation
 
 I wanted to easily create multiple nextcloud instances for customers of 161host.net
