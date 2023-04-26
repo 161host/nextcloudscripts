@@ -90,6 +90,7 @@ sudo -u www-data php $nextclouddir/occ maintenance:install \
 sudo -u www-data php $nextclouddir/occ config:system:set trusted_domains 1 --value="localhost"
 sudo -u www-data php $nextclouddir/occ config:system:set trusted_domains 2 --value="$fqdn"
 sudo -u www-data php $nextclouddir/occ config:system:set overwriteprotocol --value="https"
+sudo -u www-data php $nextclouddir/occ theming:config logo /scripts/templates/logo.png
 chmod 750 "$nextclouddir/config"
 chmod 640 "$nextclouddir/config/config.php"
 cp /scripts/templates/favicon.ico $nextclouddir/favicon.ico
