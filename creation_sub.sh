@@ -1,0 +1,117 @@
+#!/bin/bash
+###################################################
+# Author: Thies Mueller (https://thiesmueller.de) #
+# License: GNU AGPL v3.0                          #
+# USE AT YOUR OWN RISK!                           #
+# Originally developed for 161host.net            #
+###################################################
+
+echo "creation script"
+echo " "
+echo " "
+read -p "Enter the Subdomain you want to create:  " domainname
+# workaround for non 161host specific setups
+read -p "Enter the Customer ID:  " custid
+
+
+
+# Some facts:
+
+subdomain="replacewithactualsubdomain"
+fqdn="${domainname}.${subdomain}"
+datadir="/data/$fqdn"
+webdir="/webroot/$fqdn"
+dbname=nextcloud_$custid
+dbuser="${dbname}_usr"
+dbpasswd=$(openssl rand -hex 16)
+nextclouduser="adm_${custid}"
+nextcloudpasswd=$(openssl rand -hex 16)
+nextclouddir="$webdir/nextcloud"
+
+# we just add this to later find the customer id again to delete the db (also workaround for non 161host specific setups)
+echo $custid > /scripts/data/$fqdn
+
+
+echo -e " \e[45mCreate new config file from example \e[43m"
+cp /scripts/templates/subdomain /etc/nginx/sites-available/$fqdn
+
+
+echo -e " \e[45mReplace example names with $fqdn \e[43m"
+sed -i "s/replacewithactualfqdn/$fqdn/g" /etc/nginx/sites-available/$fqdn
+
+
+echo -e " \e[45mActivate new config \e[43m"
+cd /etc/nginx/sites-enabled
+ln -s ../sites-available/$fqdn .
+
+
+echo -e " \e[45mTesting config and reloading \e[43m"
+nginx -t
+nginx -s reload
+
+
+echo -e " \e[45mCreating the webroot folder \e[106m"
+mkdir $webdir
+chown www-data:www-data $datadir
+
+
+echo -e " \e[45mCreating the db user & database \e[106m"
+mysql -e "CREATE DATABASE ${dbname};"
+mysql -e "CREATE USER '${dbuser}'@'localhost' IDENTIFIED BY '${dbpasswd}';"
+mysql -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${dbuser}'@'localhost';"
+
+
+echo -e " \e[45mCreating the data folder \e[106m"
+mkdir $datadir
+chown www-data:www-data $datadir
+
+
+echo -e " \e[45mInstalling Nextcloud \e[106m"
+wget -O /tmp/latest.zip "https://download.nextcloud.com/server/releases/latest.zip"
+unzip "/tmp/latest.zip" -d $webdir
+chown -R www-data:www-data $webdir
+
+
+
+echo -e " \e[45mConfiguring Nextcloud \e[106m"
+sudo -u www-data php $nextclouddir/occ maintenance:install \
+--database "mysql" \
+--database-name "$dbname" \
+--database-user "$dbuser" \
+--database-pass "$dbpasswd" \
+--admin-user "$nextclouduser" \
+--admin-pass "$nextcloudpasswd" \
+--data-dir "$datadir"
+sudo -u www-data php $nextclouddir/occ config:system:set trusted_domains 1 --value="localhost"
+sudo -u www-data php $nextclouddir/occ config:system:set trusted_domains 2 --value="$fqdn"
+sudo -u www-data php $nextclouddir/occ config:system:set overwriteprotocol --value="https"
+chmod 750 "$nextclouddir/config"
+chmod 640 "$nextclouddir/config/config.php"
+chown -R www-data:www-data "$webdir"
+
+echo -e " \e[45mCreating a occ shortcut for installation \e[106m"
+
+echo "alias occ_$custid='sudo -u www-data php $nextclouddir/occ'"
+
+echo -e " \e[45mCreating a file with all credentials (/secrets/$fqdn) \e[106m"
+touch /secrets/$fqdn
+echo "DB INFOS" >> /secrets/$fqdn
+echo " " >> /secrets/$fqdn
+echo "DB: $dbname" >> /secrets/$fqdn
+echo "DB User: $dbuser" >> /secrets/$fqdn
+echo "DB Passwd: $dbpasswd" >> /secrets/$fqdn
+echo " " >> /secrets/$fqdn
+echo " " >> /secrets/$fqdn
+echo " " >> /secrets/$fqdn
+echo "NEXTCLOUD INFOS" >> /secrets/$fqdn
+echo " " >> /secrets/$fqdn
+echo "Nextcloud User: $nextclouduser" >> /secrets/$fqdn
+echo "Nextcloud Passwd: $nextcloudpasswd" >> /secrets/$fqdn
+echo "Nextcloud URL: https://$fqdn" >> /secrets/$fqdn
+echo " " >> /secrets/$fqdn
+echo "OCC Command: occ_$custid" >> /secrets/$fqdn
+
+
+echo -e " \e[102mGoodbye! \e[0m"
+
+cat "/secrets/${fqdn}"
