@@ -89,6 +89,9 @@ sudo -u www-data php $nextclouddir/occ config:system:set trusted_domains 2 --val
 sudo -u www-data php $nextclouddir/occ config:system:set overwriteprotocol --value="https"
 sudo -u www-data php $nextclouddir/occ theming:config logo /scripts/templates/logo.png
 sudo -u www-data php $nextclouddir/occ theming:config favicon /scripts/templates/favicon.ico
+sudo -u www-data php $nextclouddir/occ theming:config name "161host Cloud"
+sudo -u www-data php $nextclouddir/occ theming:config slogan "Still hating Nazis"
+
 chmod 750 "$nextclouddir/config"
 chmod 640 "$nextclouddir/config/config.php"
 chown -R www-data:www-data "$webdir"
