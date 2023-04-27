@@ -40,6 +40,7 @@ if ! apt-cache show php8.1 >/dev/null 2>&1; then
         echo "Error: php8.1 could not be installed"
         exit 1
     fi
+fi
 
 echo "Install needed software"
 apt install nginx certbot wget unzip bash sed python3-certbot-nginx mariadb-server php8.1 php8.1-cli php8.1-fpm php8.1-zip php8.1-mysql php8.1-opcache php8.1-mbstring php8.1-xml php8.1-gd php8.1-curl libmagickcore-6.q16-3-extra php8.1-imagick logrotate -y
