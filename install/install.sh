@@ -54,34 +54,66 @@ nginx -t
 echo "Try to mount everything"
 mount -a
 
+
+read -p "Data Directory (default: /data): " data_dir
+if [ -z "$data_dir" ]; then
+    data_dir="/data"
+fi
+
+read -p "Webroot Directory (default: /webroot): " webroot_dir
+if [ -z "$webroot_dir" ]; then
+    webroot_dir="/webroot"
+fi
+
+read -p "Secrets Directory (default: /secrets): " secrets_dir
+if [ -z "$secrets_dir" ]; then
+    secrets_dir="/secrets"
+fi
+
+read -p "Nextcloud Log Directory (default: /var/log/nextcloud): " nextcloudlog_dir
+if [ -z "$nextcloudlog_dir" ]; then
+    nextcloudlog_dir="/var/log/nextcloud"
+fi
+
+read -p "Script Data Directory (default: /scripts/data): " scriptsdata_dir
+if [ -z "$scriptsdata_dir" ]; then
+    scriptsdata_dir="/scripts/data"
+fi
+
 echo "Check if directories existing and otherwise create them"
-if [ -d /data ]; then
-  echo "/data already exists"
+if [ -d $data_dir ]; then
+  echo "$data_dir already exists"
 else
-  echo "Creating /data"
-  mkdir /data
+  echo "Creating $data_dir"
+  mkdir $data_dir
 fi
 
-if [ -d /webroot ]; then
-  echo "/webroot already exists"
+if [ -d $webroot_dir ]; then
+  echo "$webroot_dir already exists"
 else
-  echo "Creating /webroot"
-  mkdir /webroot
+  echo "Creating $webroot_dir"
+  mkdir $webroot_dir
 fi
 
-if [ -d /secrets ]; then
-  echo "/secrets already exists"
+if [ -d $secrets_dir ]; then
+  echo "$secrets_dir already exists"
 else
-  echo "Creating /secrets"
-  mkdir /secrets
+  echo "Creating $secrets_dir"
+  mkdir $secrets_dir
 fi
 
-
-if [ -d /scripts/data ]; then
-  echo "/scripts/data already exists"
+if [ -d $nextcloudlog_dir ]; then
+  echo "$nextcloudlog_dir already exists"
 else
-  echo "Creating /scripts/data"
-  mkdir /scripts/data
+  echo "Creating $nextcloudlog_dir"
+  mkdir $nextcloudlog_dir
+fi
+
+if [ -d $scriptsdata_dir ]; then
+  echo "$scriptsdata_dir already exists"
+else
+  echo "Creating $scriptsdata_dir"
+  mkdir $scriptsdata_dir
 fi
 
 
