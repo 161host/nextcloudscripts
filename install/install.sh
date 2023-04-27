@@ -148,8 +148,8 @@ if [ -z "$key_path" ]; then
 fi
 
 echo "Placing the certificate files in the nginx template"
-sed -i "s/replacewithfullchain/$cert_path/g" /scripts/templates/subdomain
-sed -i "s/replacewithprivatekey/$key_path/g" /scripts/templates/subdomain
+sed -i "s|replacewithfullchain|$cert_path|g" /scripts/templates/subdomain
+sed -i "s|replacewithprivatekey|$key_path|g" /scripts/templates/subdomain
 
 
 echo "Configure logrotate"
