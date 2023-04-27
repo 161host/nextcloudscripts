@@ -35,6 +35,7 @@ if ! apt-cache show php8.1 >/dev/null 2>&1; then
     sudo apt-get update
     
     if apt-cache show php8.1 >/dev/null 2>&1; then
+        echo "php8.1 can be installed"
     else
         echo "Error: php8.1 could not be installed"
         exit 1
