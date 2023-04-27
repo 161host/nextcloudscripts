@@ -22,7 +22,7 @@ rm /etc/nginx/sites-enabled/$1
 rm /etc/nginx/sites-available/$1
 
 nginx -s reload
-echo -e "\e[105m \e[30m Deleting all files in /webroot/$1 & /data/$1 (did you make a backup?)"
+echo -e "\e[105m \e[30m Deleting all files in replacewithwebrootdir/$1 & replacewithdatadir/$1 (did you make a backup?)"
 
 while true; do
     read -p 'do you want to continue "y" or "n": ' yn
@@ -40,7 +40,7 @@ while true; do
 done
 
 
-echo -e "\e[105m \e[30m Deleting all logfiles for $1 in /var/logs/nextcloud/ ?"
+echo -e "\e[105m \e[30m Deleting all logfiles for $1 in replacewithnextcloudlogsdir ?"
 
 while true; do
     read -p 'do you want to continue "y" or "n": ' yn
@@ -74,8 +74,8 @@ while true; do
 
 done
 
-rm /scripts/data/$1
-rm /secrets/$1
+rm replacewithscriptsdatadir/$1
+rm replacewithsecretsdir/$1
 
 echo -e "\e[42mThats everything. Have a wonderful day! \e[39m \e[49m "
 

@@ -10,7 +10,7 @@
 echo -e "\e[38;5;82mLets delete some files! \e[39m \e[49m "
 
 
-rm -rf /webroot/$1
-rm -rf /data/$1
+rm -rf replacewithwebrootdir/$1
+rm -rf replacewithdatadir/$1
 
 echo "success"

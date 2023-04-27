@@ -3,12 +3,12 @@ server {
     listen [::]:80;
     server_name replacewithactualfqdn;
 
-    root /webroot/replacewithactualfqdn/nextcloud;
+    root replacewithwebrootdir/replacewithactualfqdn/nextcloud;
 
     server_tokens off;
 
-    access_log /var/log/nextcloud/replacewithactualfqdn-access.log;
-	error_log /var/log/nextcloud/replacewithactualfqdn-error.log;
+    access_log replacewithnextcloudlogsdir/replacewithactualfqdn-access.log;
+	error_log replacewithnextcloudlogsdir/replacewithactualfqdn-error.log;
 
     client_max_body_size 1024M;
     client_body_timeout 300s;
