@@ -25,30 +25,36 @@ else
     echo "Lets Continue"
 fi
 
-
+echo "Updating apt Cache & upgrade all packages"
 apt update && apt upgrade -y
 
+echo "Check if php8.1 can be installed"
 if ! apt-cache show php8.1 >/dev/null 2>&1; then
-    # Add Ondrej's PPA for php8.1
+    echo "Add ppa:ondrej/php for php8.1"
     sudo add-apt-repository ppa:ondrej/php
     sudo apt-get update
     
-    # Check if the package can now be installed
     if apt-cache show php8.1 >/dev/null 2>&1; then
     else
         echo "Error: php8.1 could not be installed"
         exit 1
     fi
 
+echo "Install needed software"
 apt install nginx certbot wget unzip bash sed python3-certbot-nginx mariadb-server php8.1 php8.1-cli php8.1-fpm php8.1-zip php8.1-mysql php8.1-opcache php8.1-mbstring php8.1-xml php8.1-gd php8.1-curl libmagickcore-6.q16-3-extra php8.1-imagick logrotate -y
 
+echo "Copy nginx config snippets"
 cp /scripts/install/src/immutable.conf /etc/nginx/conf.d/immutable.conf
 cp /scripts/install/src/php-handler.conf /etc/nginx/conf.d/php-handler.conf
 
+
+echo "Test nginx config"
 nginx -t
 
+echo "Try to mount everything"
 mount -a
 
+echo "Check if directories existing and otherwise create them"
 if [ -d /data ]; then
   echo "/data already exists"
 else
@@ -79,16 +85,20 @@ else
 fi
 
 
-
+echo "Create ncmgmt command"
 echo 'alias ncmgmt="bash /scripts/domainmgmt.sh"' >> ~/.bashrc
+
 source ~/.bashrc
+
+echo "Starting the customization part:"
 
 read -p "Enter your custom subdomain:  " subdomain
 
-
+echo "Copy templates to directories"
 cp /scripts/install/src/subdomain.tmpl /scripts/templates/subdomain
 cp /scripts/install/src/creation_sub.sh.tmpl /scripts/creation_sub.sh
 
+echo "Place subdomain in the script"
 sed -i "s/replacewithactualsubdomain/$subdomain/g" /scripts/creation_sub.sh
 
 
@@ -103,11 +113,12 @@ if [ -z "$key_path" ]; then
     key_path="/etc/letsencrypt/live/$subdomain/privkey.pem"
 fi
 
+echo "Placing the certificate files in the nginx template"
 sed -i "s/replacewithfullchain/$cert_path/g" /scripts/templates/subdomain
 sed -i "s/replacewithprivatekey/$key_path/g" /scripts/templates/subdomain
 
 
-
+echo "Configure logrotate"
 cp /scripts/install/src/logrotate /etc/logrotate.d/nextcloud
 logrotate -f /etc/logrotate.d/nextcloud
 
