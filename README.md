@@ -73,6 +73,7 @@ It's a pile of bash scripts, so don't expect anything fancy.
 - php8.1-xml
 - php8.1-gd
 - php8.1-curl
+- php8.1-intl
 - php8.1-imagick
 
 **This scrips expect some stuff. Alter them as needed if your setup differs from mine.**
