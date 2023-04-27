@@ -13,8 +13,8 @@ server {
 
     root /webroot/replacewithactualfqdn/nextcloud;
 
-    ssl_certificate     /etc/letsencrypt/live/replacewithactualsubdomain/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/replacewithactualsubdomain/privkey.pem;
+    ssl_certificate     replacewithfullchain;
+    ssl_certificate_key replacewithprivatekey;
 
     server_tokens off;
 

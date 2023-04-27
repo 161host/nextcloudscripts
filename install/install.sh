@@ -79,11 +79,24 @@ cp /scripts/install/src/subdomain.tmpl /scripts/templates/subdomain
 cp /scripts/install/src/creation_sub.sh.tmpl /scripts/creation_sub.sh
 
 sed -i "s/replacewithactualsubdomain/$subdomain/g" /scripts/creation_sub.sh
-sed -i "s/replacewithactualsubdomain/$subdomain/g" /scripts/templates/subdomain
+
+
+read -p "Enter the path to the SSL certificate (default: /etc/letsencrypt/live/$subdomain/fullchain.pem): " cert_path
+if [ -z "$cert_path" ]; then
+    cert_path="/etc/letsencrypt/live/$subdomain/fullchain.pem"
+fi
+
+# Ask for the private key path
+read -p "Enter the path to the private key (default: /etc/letsencrypt/live/$subdomain/privkey.pem): " key_path
+if [ -z "$key_path" ]; then
+    key_path="/etc/letsencrypt/live/$subdomain/privkey.pem"
+fi
+
+sed -i "s/replacewithfullchain/$cert_path/g" /scripts/templates/subdomain
+sed -i "s/replacewithprivatekey/$key_path/g" /scripts/templates/subdomain
+
+
 
 cp /scripts/install/src/logrotate /etc/logrotate.d/nextcloud
 logrotate -f /etc/logrotate.d/nextcloud
 
-echo "I'll just expect that your wildcard certificate is here: /etc/letsencrypt/live/$subdomain/"
-echo " "
-echo "If not. You wanna change that in /scripts/templates/subdomain"
