@@ -18,8 +18,8 @@ read -p "Enter the Customer ID:  " custid
 # Some facts:
 
 fqdn="${domainname}"
-datadir="/data/$fqdn"
-webdir="/webroot/$fqdn"
+datadir="replacewithdatadir/$fqdn"
+webdir="replacewithwebrootdir/$fqdn"
 dbname=nextcloud_$custid
 dbuser="${dbname}_usr"
 dbpasswd=$(openssl rand -hex 16)
@@ -28,7 +28,7 @@ nextcloudpasswd=$(openssl rand -hex 16)
 nextclouddir="$webdir/nextcloud"
 
 # we just add this to later find the customer id again to delete the db (also workaround for non 161host specific setups)
-echo $custid > /scripts/data/$fqdn
+echo $custid > replacewithscriptsdatadir/$fqdn
 
 echo -e " \e[45mCreate new config file from example \e[43m"
 cp /scripts/templates/owndomain /etc/nginx/sites-available/$fqdn
@@ -105,23 +105,23 @@ echo -e " \e[45mCreating a occ shortcut for installation \e[106m"
 echo "alias occ_$custid='sudo -u www-data php $nextclouddir/occ'" >> ~/.bashrc
 
 
-echo -e " \e[45mCreating a file with all credentials (/secrets/$fqdn) \e[106m"
-touch /secrets/$fqdn
-echo "DB INFOS" >> /secrets/$fqdn
-echo " " >> /secrets/$fqdn
-echo "DB: $dbname" >> /secrets/$fqdn
-echo "DB User: $dbuser" >> /secrets/$fqdn
-echo "DB Passwd: $dbpasswd" >> /secrets/$fqdn
-echo " " >> /secrets/$fqdn
-echo " " >> /secrets/$fqdn
-echo " " >> /secrets/$fqdn
-echo "NEXTCLOUD INFOS" >> /secrets/$fqdn
-echo " " >> /secrets/$fqdn
-echo "Nextcloud User: $nextclouduser" >> /secrets/$fqdn
-echo "Nextcloud Passwd: $nextcloudpasswd" >> /secrets/$fqdn
-echo "Nextcloud URL: https://$fqdn" >> /secrets/$fqdn
-echo " " >> /secrets/$fqdn
-echo "OCC Command: occ_$custid" >> /secrets/$fqdn
+echo -e " \e[45mCreating a file with all credentials (replacewithsecretsdir/$fqdn) \e[106m"
+touch replacewithsecretsdir/$fqdn
+echo "DB INFOS" >> replacewithsecretsdir/$fqdn
+echo " " >> replacewithsecretsdir/$fqdn
+echo "DB: $dbname" >> replacewithsecretsdir/$fqdn
+echo "DB User: $dbuser" >> replacewithsecretsdir/$fqdn
+echo "DB Passwd: $dbpasswd" >> replacewithsecretsdir/$fqdn
+echo " " >> replacewithsecretsdir/$fqdn
+echo " " >> replacewithsecretsdir/$fqdn
+echo " " >> replacewithsecretsdir/$fqdn
+echo "NEXTCLOUD INFOS" >> replacewithsecretsdir/$fqdn
+echo " " >> replacewithsecretsdir/$fqdn
+echo "Nextcloud User: $nextclouduser" >> replacewithsecretsdir/$fqdn
+echo "Nextcloud Passwd: $nextcloudpasswd" >> replacewithsecretsdir/$fqdn
+echo "Nextcloud URL: https://$fqdn" >> replacewithsecretsdir/$fqdn
+echo " " >> replacewithsecretsdir/$fqdn
+echo "OCC Command: occ_$custid" >> replacewithsecretsdir/$fqdn
 
 
 echo -e " \e[45mOne last reload and you're good to go \e[43m"
@@ -130,4 +130,4 @@ nginx -s reload
 
 echo -e " \e[102mGoodbye! \e[0m"
 
-cat "/secrets/${fqdn}"
+cat "replacewithsecretsdir/${fqdn}"

@@ -10,6 +10,6 @@
 echo -e "\e[38;5;82mLets delete some logs! \e[39m \e[49m "
 
 
-rm  /var/log/nextcloud/$1*
+rm  replacewithnextcloudlogsdir/$1*
 
 echo "success"

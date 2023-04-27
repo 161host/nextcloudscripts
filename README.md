@@ -79,9 +79,11 @@ It's a pile of bash scripts, so don't expect anything fancy.
 
 ### Directories
 
-The scripts expect some directories to be present.
+The installation is split in multiple directories.
 
 This is first and foremost to have the possibility to split the stuff onto multiple volumes.
+
+The below mentioned directories are the default.
 
 i.e. `/webroot` on a high i/o volume for smooth usage of the webapps and stuff but `/data` on a slower volume cause high i/o volumes are still not that cheap or `/secrets` in a specially encrypted volume that needs to be mounted before the script is run
 
@@ -97,14 +99,7 @@ i.e. `/webroot` on a high i/o volume for smooth usage of the webapps and stuff b
 *Here I'll expect you already have `git` installed on your system. If not do that now.*
 
 
-If you don't want to do the mounting stuff yourself you can just create the directory
-
-
-```bash
-mkdir /data
-mkdir /webroot
-mkdir /secrets
-```
+If you don't want to do the mounting stuff yourself you can just run the installer
 
 I'm no fan of `curl https://<something> | bash` as root so here we go. Here is what most of these files are:
 

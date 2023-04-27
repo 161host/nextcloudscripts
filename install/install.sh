@@ -72,9 +72,9 @@ if [ -z "$secrets_dir" ]; then
     secrets_dir="/secrets"
 fi
 
-read -p "Nextcloud Log Directory (default: /var/log/nextcloud): " nextcloudlog_dir
-if [ -z "$nextcloudlog_dir" ]; then
-    nextcloudlog_dir="/var/log/nextcloud"
+read -p "Nextcloud Log Directory (default: /var/log/nextcloud): " nextcloudlogs_dir
+if [ -z "$nextcloudlogs_dir" ]; then
+    nextcloudlogs_dir="/var/log/nextcloud"
 fi
 
 read -p "Script Data Directory (default: /scripts/data): " scriptsdata_dir
@@ -104,11 +104,11 @@ else
   mkdir $secrets_dir
 fi
 
-if [ -d $nextcloudlog_dir ]; then
-  echo "$nextcloudlog_dir already exists"
+if [ -d $nextcloudlogs_dir ]; then
+  echo "$nextcloudlogs_dir already exists"
 else
-  echo "Creating $nextcloudlog_dir"
-  mkdir $nextcloudlog_dir
+  echo "Creating $nextcloudlogs_dir"
+  mkdir $nextcloudlogs_dir
 fi
 
 if [ -d $scriptsdata_dir ]; then
@@ -117,6 +117,35 @@ else
   echo "Creating $scriptsdata_dir"
   mkdir $scriptsdata_dir
 fi
+
+sed -i "s|replacewithdatadir|$data_dir|g" /scripts/creation_own.sh
+sed -i "s|replacewithdatadir|$data_dir|g" /scripts/deletefiles.sh
+sed -i "s|replacewithdatadir|$data_dir|g" /scripts/reallydelete.sh
+sed -i "s|replacewithdatadir|$data_dir|g" /scripts/install/src/creation_sub.sh.tmpl
+
+sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/creation_own.sh
+sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/install/src/creation_sub.sh.tmpl
+sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/deletefiles.sh
+sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/install/src/subdomain.tmpl
+sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/owndomain
+sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/reallydelete.sh
+
+sed -i "s|replacewithsecretsdir|$secrets_dir|g" /scripts/creation_own.sh
+sed -i "s|replacewithsecretsdir|$secrets_dir|g" /scripts/reallydelete.sh
+sed -i "s|replacewithsecretsdir|$secrets_dir|g" /scripts/install/src/creation_sub.sh.tmpl
+
+sed -i "s|replacewithnextcloudlogsdir|$nextcloudlogs_dir|g" /scripts/deletelogs.sh
+sed -i "s|replacewithnextcloudlogsdir|$nextcloudlogs_dir|g" /scripts/reallydelete.sh
+sed -i "s|replacewithnextcloudlogsdir|$nextcloudlogs_dir|g" /scripts/install/srclogrotate
+sed -i "s|replacewithnextcloudlogsdir|$nextcloudlogs_dir|g" /scripts/install/src/subdomain.tmpl
+sed -i "s|replacewithnextcloudlogsdir|$nextcloudlogs_dir|g" /scripts/owndomain
+
+
+sed -i "s|replacewithscriptsdatadir|$scriptsdata_dir|g" /scripts/creation_own.sh
+sed -i "s|replacewithscriptsdatadir|$scriptsdata_dir|g" /scripts/deletedb.sh
+sed -i "s|replacewithscriptsdatadir|$scriptsdata_dir|g" /scripts/reallydelete.sh
+sed -i "s|replacewithscriptsdatadir|$scriptsdata_dir|g" /scripts/install/src/creation_sub.sh.tmpl
+
 
 
 echo "Create ncmgmt command"
