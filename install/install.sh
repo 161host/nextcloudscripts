@@ -18,7 +18,7 @@ fi
 apt update && apt upgrade -y
 
 # Install all the stuff you need
-apt install nginx certbot wget unzip bash sed python3-certbot-nginx mariadb-server php8.1 php8.1-cli php8.1-fpm php8.1-zip php8.1-mysql php8.1-opcache php8.1-mbstring php8.1-xml php8.1-gd php8.1-curl libmagickcore-6.q16-3-extra php8.1-imagick -y
+apt install nginx certbot wget unzip bash sed python3-certbot-nginx mariadb-server php8.1 php8.1-cli php8.1-intl php8.1-fpm php8.1-zip php8.1-mysql php8.1-opcache php8.1-mbstring php8.1-xml php8.1-gd php8.1-curl libmagickcore-6.q16-3-extra php8.1-imagick -y
 
 # copy the nginx config snippets that we need
 cp /scripts/install/src/immutable.conf /etc/nginx/conf.d/immutable.conf
@@ -26,6 +26,17 @@ cp /scripts/install/src/php-handler.conf /etc/nginx/conf.d/php-handler.conf
 
 # test the nginx config
 nginx -t
+
+# PHP Config
+# Remove the lines with the content we want to replace
+sed -i "/post_max_size/d" /etc/php/8.1/fpm/php.ini
+sed -i "/memory_limit/d" /etc/php/8.1/fpm/php.ini
+sed -i "/upload_max_filesize/d" /etc/php/8.1/fpm/php.ini
+
+# Set the new Values
+echo "upload_max_filesize = 512M" >> /etc/php/8.1/fpm/php.ini
+echo "memory_limit = 1024M" >> /etc/php/8.1/fpm/php.ini
+echo "post_max_size = 512M" >> /etc/php/8.1/fpm/php.ini
 
 # create this directory
 mkdir /scripts/data
