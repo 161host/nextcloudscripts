@@ -14,7 +14,21 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 
+
 apt update && apt upgrade -y
+
+if ! apt-cache show php8.1 >/dev/null 2>&1; then
+    # Add Ondrej's PPA for php8.1
+    sudo add-apt-repository ppa:ondrej/php
+    sudo apt-get update
+    
+    # Check if the package can now be installed
+    if apt-cache show php8.1 >/dev/null 2>&1; then
+    else
+        echo "Error: php8.1 could not be installed"
+        exit 1
+    fi
+
 apt install nginx certbot wget unzip bash sed python3-certbot-nginx mariadb-server php8.1 php8.1-cli php8.1-fpm php8.1-zip php8.1-mysql php8.1-opcache php8.1-mbstring php8.1-xml php8.1-gd php8.1-curl libmagickcore-6.q16-3-extra php8.1-imagick logrotate -y
 
 cp /scripts/install/src/immutable.conf /etc/nginx/conf.d/immutable.conf
