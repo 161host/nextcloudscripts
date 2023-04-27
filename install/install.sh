@@ -8,6 +8,7 @@
 
 # This is just another excuse to not write an ansible role cause it is soo much easier for you to setup. (Yes I'll show myself to the door....)
 
+# the whole setup assumes that the user you're using is root. If this isn't the case, well. Search for another script or alter it the way you want. (If it comes out nice, feel free to create a MR)
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
@@ -153,6 +154,7 @@ echo 'alias ncmgmt="bash /scripts/domainmgmt.sh"' >> ~/.bashrc
 
 source ~/.bashrc
 
+
 echo "Starting the customization part:"
 
 read -p "Enter your custom subdomain:  " subdomain
@@ -163,7 +165,6 @@ cp /scripts/install/src/creation_sub.sh.tmpl /scripts/creation_sub.sh
 
 echo "Place subdomain in the script"
 sed -i "s/replacewithactualsubdomain/$subdomain/g" /scripts/creation_sub.sh
-
 
 read -p "Enter the path to the SSL certificate (default: /etc/letsencrypt/live/$subdomain/fullchain.pem): " cert_path
 if [ -z "$cert_path" ]; then
@@ -184,4 +185,3 @@ sed -i "s|replacewithprivatekey|$key_path|g" /scripts/templates/subdomain
 echo "Configure logrotate"
 cp /scripts/install/src/logrotate /etc/logrotate.d/nextcloud
 logrotate -f /etc/logrotate.d/nextcloud
-

@@ -56,7 +56,12 @@ chown www-data:www-data $datadir
 
 
 echo -e " \e[45mCreating the db user & database \e[106m"
-mysql -e "CREATE DATABASE ${dbname};"
+if mysql -e "use ${dbname};"; then
+  echo "Database already exists"
+  exit 1
+else
+  mysql -e "CREATE DATABASE ${dbname};"
+fi
 mysql -e "CREATE USER '${dbuser}'@'localhost' IDENTIFIED BY '${dbpasswd}';"
 mysql -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${dbuser}'@'localhost';"
 

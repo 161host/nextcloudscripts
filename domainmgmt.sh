@@ -8,13 +8,13 @@
 ###################################################
 
 if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root" 
+   echo "This script must be run as root"
    exit 1
 fi
 
 
 while true; do
-	read -p 'Create subdomain (s) , own Domain (o) or delete Domain (d)?: ' dc
+    read -p 'Create subdomain (s) , own Domain (o) , delete Domain (d) or list all nextcloud instances (l)?: ' dc
 
     case $dc in
 
@@ -24,7 +24,9 @@ while true; do
 
         [Ss]* ) echo 'launching creation (subdomain) '; bash /scripts/creation_sub.sh;break;;
 
-        * ) echo 'Please answer s , o or c: ';;
+        [Ll]* ) echo 'listing all active nextcloud instances '; bash /scripts/listdomains.sh;break;;
+
+        * ) echo 'Please answer s , o , l or c: ';;
 
     esac
 
