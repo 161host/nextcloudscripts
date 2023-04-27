@@ -127,7 +127,7 @@ sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/creation_own.sh
 sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/install/src/creation_sub.sh.tmpl
 sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/deletefiles.sh
 sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/install/src/subdomain.tmpl
-sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/owndomain
+sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/templates/owndomain
 sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/reallydelete.sh
 
 sed -i "s|replacewithsecretsdir|$secrets_dir|g" /scripts/creation_own.sh
@@ -136,9 +136,9 @@ sed -i "s|replacewithsecretsdir|$secrets_dir|g" /scripts/install/src/creation_su
 
 sed -i "s|replacewithnextcloudlogsdir|$nextcloudlogs_dir|g" /scripts/deletelogs.sh
 sed -i "s|replacewithnextcloudlogsdir|$nextcloudlogs_dir|g" /scripts/reallydelete.sh
-sed -i "s|replacewithnextcloudlogsdir|$nextcloudlogs_dir|g" /scripts/install/srclogrotate
+sed -i "s|replacewithnextcloudlogsdir|$nextcloudlogs_dir|g" /scripts/install/src/logrotate
 sed -i "s|replacewithnextcloudlogsdir|$nextcloudlogs_dir|g" /scripts/install/src/subdomain.tmpl
-sed -i "s|replacewithnextcloudlogsdir|$nextcloudlogs_dir|g" /scripts/owndomain
+sed -i "s|replacewithnextcloudlogsdir|$nextcloudlogs_dir|g" /scripts/templates/owndomain
 
 
 sed -i "s|replacewithscriptsdatadir|$scriptsdata_dir|g" /scripts/creation_own.sh
