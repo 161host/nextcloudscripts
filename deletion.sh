@@ -7,6 +7,11 @@
 ###################################################
 
 echo "deleting"
+
+echo " "
+echo "These are the domains that can be deleted using this script:"
+ls -A1 /etc/nginx/sites-enabled/
+echo " "
 echo " "
 echo " "
 read -p "Enter the Domain Name you want to delete:  " domainname
