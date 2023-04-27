@@ -13,6 +13,17 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+os_name=$(lsb_release -si)
+os_version=$(lsb_release -sr)
+
+# Check if the operating system is Ubuntu or earlier than Ubuntu 18.04
+if [ "$os_name" != "Ubuntu" ] || [ "$(echo "$os_version < 18.04" | bc)" -eq 1 ]; then
+    echo "Error: This script is intended for Ubuntu 18.04 or later"
+    exit 1
+else
+    echo "Operating system is $os_name $os_version"
+    echo "Lets Continue"
+fi
 
 
 apt update && apt upgrade -y
