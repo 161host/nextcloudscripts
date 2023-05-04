@@ -135,6 +135,12 @@ sed -i "s|replacewithmntdir|$mnt_dir|g" /scripts/deletefiles.sh
 sed -i "s|replacewithmntdir|$mnt_dir|g" /scripts/reallydelete.sh
 sed -i "s|replacewithmntdir|$mnt_dir|g" /scripts/install/src/creation_sub.sh.tmpl
 
+sed -i "s|replacewithdatadir|$data_dir|g" /scripts/creation_own.sh
+sed -i "s|replacewithdatadir|$data_dir|g" /scripts/deletefiles.sh
+sed -i "s|replacewithdatadir|$data_dir|g" /scripts/reallydelete.sh
+sed -i "s|replacewithdatadir|$data_dir|g" /scripts/install/src/creation_sub.sh.tmpl
+
+
 sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/creation_own.sh
 sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/install/src/creation_sub.sh.tmpl
 sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/deletefiles.sh

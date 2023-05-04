@@ -13,12 +13,14 @@ read -p "Enter the Domain you want to create:  " domainname
 # workaround for non 161host specific setups
 read -p "Enter the Customer ID:  " custid
 
+read -p "Size of Nextcloud (i.e. 10G):   " ncsize
 
 
 # Some facts:
 
 fqdn="${domainname}"
 datadir="replacewithmntdir/$fqdn"
+fsdir="replacewithdatadir/$fqdn"
 webdir="replacewithwebrootdir/$fqdn"
 dbname=nextcloud_$custid
 dbuser="${dbname}_usr"
@@ -47,6 +49,7 @@ echo -e " \e[45mTesting config and reloading \e[43m"
 nginx -t
 nginx -s reload
 
+echo -e " \e[45mCreating the webroot folder \e[106m"
 
 echo -e " \e[45mCreating the webroot folder \e[106m"
 mkdir $webdir
@@ -65,6 +68,14 @@ mysql -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${dbuser}'@'localhost';"
 
 echo -e " \e[45mCreating the data folder \e[106m"
 mkdir $datadir
+
+echo -e " \e[45mCreating Nextcloud Data File System \e[106m"
+touch $fsdir
+truncate -s $ncsize $fsdir
+echo "$fsdir $datadir ext4 discard,nofail,defaults 0 0" >> /etc/fstab
+mount -a
+
+echo -e " \e[45mSetting Permissions \e[106m"
 chown www-data:www-data $datadir
 
 
