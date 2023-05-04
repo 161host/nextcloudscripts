@@ -18,7 +18,7 @@ read -p "Enter the Customer ID:  " custid
 # Some facts:
 
 fqdn="${domainname}"
-datadir="replacewithdatadir/$fqdn"
+datadir="replacewithmntdir/$fqdn"
 webdir="replacewithwebrootdir/$fqdn"
 dbname=nextcloud_$custid
 dbuser="${dbname}_usr"

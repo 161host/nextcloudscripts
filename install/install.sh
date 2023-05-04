@@ -57,6 +57,10 @@ nginx -t
 echo "Try to mount everything"
 mount -a
 
+read -p "Mount Directory (default: /mnt): " mnt_dir
+if [ -z "$mnt_dir" ]; then
+   mnt_dir="/mnt"
+fi
 
 read -p "Data Directory (default: /data): " data_dir
 if [ -z "$data_dir" ]; then
@@ -84,6 +88,13 @@ if [ -z "$scriptsdata_dir" ]; then
 fi
 
 echo "Check if directories existing and otherwise create them"
+if [ -d $mnt_dir ]; then
+  echo "$mnt_dir already exists"
+else
+  echo "Creating $mnt_dir"
+  mkdir $mnt_dir
+fi
+
 if [ -d $data_dir ]; then
   echo "$data_dir already exists"
 else
@@ -119,10 +130,10 @@ else
   mkdir $scriptsdata_dir
 fi
 
-sed -i "s|replacewithdatadir|$data_dir|g" /scripts/creation_own.sh
-sed -i "s|replacewithdatadir|$data_dir|g" /scripts/deletefiles.sh
-sed -i "s|replacewithdatadir|$data_dir|g" /scripts/reallydelete.sh
-sed -i "s|replacewithdatadir|$data_dir|g" /scripts/install/src/creation_sub.sh.tmpl
+sed -i "s|replacewithmntdir|$mnt_dir|g" /scripts/creation_own.sh
+sed -i "s|replacewithmntdir|$mnt_dir|g" /scripts/deletefiles.sh
+sed -i "s|replacewithmntdir|$mnt_dir|g" /scripts/reallydelete.sh
+sed -i "s|replacewithmntdir|$mnt_dir|g" /scripts/install/src/creation_sub.sh.tmpl
 
 sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/creation_own.sh
 sed -i "s|replacewithwebrootdir|$webroot_dir|g" /scripts/install/src/creation_sub.sh.tmpl

@@ -22,7 +22,7 @@ rm /etc/nginx/sites-enabled/$1
 rm /etc/nginx/sites-available/$1
 
 nginx -s reload
-echo -e "\e[105m \e[30m Deleting all files in replacewithwebrootdir/$1 & replacewithdatadir/$1 (did you make a backup?)"
+echo -e "\e[105m \e[30m Deleting all files in replacewithwebrootdir/$1 & replacewithmntdir/$1 (did you make a backup?)"
 
 while true; do
     read -p 'do you want to continue "y" or "n": ' yn
