@@ -73,6 +73,7 @@ mkdir $datadir
 echo -e " \e[45mCreating Nextcloud Data File System \e[106m"
 touch $fsdir
 truncate -s $ncsize $fsdir
+mkfs.ext4 $fsdir
 echo "$fsdir $datadir ext4 discard,nofail,defaults 0 0" >> /etc/fstab
 mount -a
 
