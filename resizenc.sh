@@ -7,22 +7,23 @@
 ###################################################
 
 
+echo "NOT IMPLEMENTED!"
 echo "resize nextcloud script"
 echo " "
 echo " "
-read -p "Enter the Domain you want to create:  " domainname
+#read -p "Enter the Domain you want to create:  " domainname
 # this needs to be here.. :<
-currentsize="$(ls -lh replacewithdatadir/$domainname | awk '{print  $5}')"
-echo "current size of nextcloud: $currentsize"
-read -p "New Size of Nextcloud (i.e. 10G) (needs to be larger then $currentsize):   " ncsize
+#currentsize="$(ls -lh replacewithdatadir/$domainname | awk '{print  $5}')"
+#echo "current size of nextcloud: $currentsize"
+#read -p "New Size of Nextcloud (i.e. 10G) (needs to be larger then $currentsize):   " ncsize
 
 
 # Some facts:
 
-fqdn="${domainname}"
-fsdir="replacewithdatadir/$fqdn"
-truncate -s $ncsize $fsdir
-resize2fs $fsdir
+#fqdn="${domainname}"
+#fsdir="replacewithdatadir/$fqdn"
+#truncate -s $ncsize $fsdir
+#resize2fs $fsdir
 
 
 echo -e " \e[102mGoodbye! \e[0m"
