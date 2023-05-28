@@ -14,7 +14,7 @@ fi
 
 
 while true; do
-    read -p 'Create subdomain (s) , own Domain (o) , delete Domain (d) or list all nextcloud instances (l)?: ' dc
+    read -p 'Create subdomain (s) , own Domain (o) , delete Domain (d), resize a volume (r) or list all nextcloud instances (l)?: ' dc
 
     case $dc in
 
@@ -26,7 +26,9 @@ while true; do
 
         [Ll]* ) echo 'listing all active nextcloud instances '; bash /scripts/listdomains.sh;break;;
 
-        * ) echo 'Please answer s , o , l or c: ';;
+        [Rr]* ) echo 'Resize Volume (only larger is possible) '; bash /scripts/resizenc.sh;break;;
+
+        * ) echo 'Please answer s , o , l , r or c: ';;
 
     esac
 
