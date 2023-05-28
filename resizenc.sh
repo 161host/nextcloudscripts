@@ -6,11 +6,13 @@
 # Originally developed for 161host.net            #
 ###################################################
 
-currentsize="$(ls -lh replacewithdatadir/$domainname | awk '{print  $5}')"
+
 echo "resize nextcloud script"
 echo " "
 echo " "
 read -p "Enter the Domain you want to create:  " domainname
+# this needs to be here.. :<
+currentsize="$(ls -lh replacewithdatadir/$domainname | awk '{print  $5}')"
 echo "current size of nextcloud: $currentsize"
 read -p "New Size of Nextcloud (i.e. 10G) (needs to be larger then $currentsize):   " ncsize
 
